@@ -8,7 +8,7 @@ export const getAccounts = () => {
     queryFn: async () => {
       const response = await client.api.accounts.$get(); // avoid using try catch here as it will be handled by the error handler
 
-      if (!response.ok) {
+      if (!response.ok) { // if not there, then additionally need to handle below, throw an error (type-safe)
         throw new Error("Failed to fetch accounts");
       }
       const { data } = await response.json();
