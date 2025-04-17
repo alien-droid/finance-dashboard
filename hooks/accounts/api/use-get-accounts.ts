@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query"; // query hook to fetch accounts
 
 import { client } from "@/lib/hono";
 

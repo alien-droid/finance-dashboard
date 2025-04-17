@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+import { toast } from "sonner"; // query hook to create an account 
 
 import { InferRequestType, InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
