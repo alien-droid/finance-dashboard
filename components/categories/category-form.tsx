@@ -12,11 +12,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { accountsInsertSchema } from "@/db/schema";
+import { categoriesInsertSchema } from "@/db/schema";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-const formSchema = accountsInsertSchema.pick({ name: true });
+const formSchema = categoriesInsertSchema.pick({ name: true });
 
 type formValues = z.input<typeof formSchema>;
 
@@ -28,7 +28,7 @@ type formProps = {
   disabled?: boolean;
 };
 
-export const AccountForm = ({
+export const CategoryForm = ({
   id,
   defaultValues,
   onSubmit,
@@ -65,7 +65,7 @@ export const AccountForm = ({
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="e.g Cash, Credit, Debit Card"
+                  placeholder="e.g Food, Travel, Entertainment, etc."
                   disabled={disabled}
                 />
               </FormControl>
@@ -73,7 +73,7 @@ export const AccountForm = ({
           )}
         />
         <Button className="w-full" disabled={disabled} type="submit">
-          {id ? "Save Changes" : "Create Account"}
+          {id ? "Save Changes" : "Create category"}
         </Button>
         {!!id && (
           <Button
@@ -84,7 +84,7 @@ export const AccountForm = ({
             type="button" // prevent form submission
           >
             <Trash className="h-4 w-4 mr-1" />
-            Delete Account
+            Delete Category
           </Button>
         )}
       </form>

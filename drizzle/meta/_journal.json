@@ -15,6 +15,20 @@
       "when": 1744299080789,
       "tag": "0001_illegal_stingray",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1745112959673,
+      "tag": "0002_jittery_shinobi_shaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1745339608332,
+      "tag": "0003_ancient_roulette",
+      "breakpoints": true
     }
   ]
 }

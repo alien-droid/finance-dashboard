@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/Sheet";
 import { AccountForm } from "@/components/accounts/account-form";
 import { accountsInsertSchema } from "@/db/schema";
-import { useCreateAccount } from "@/hooks/accounts/use-create-account";
+import { useCreateAccount } from "@/hooks/accounts/api/use-create-account";
 
 const formSchema = accountsInsertSchema.pick({ name: true });
 type formValues = z.input<typeof formSchema>;
