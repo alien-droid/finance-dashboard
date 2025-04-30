@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useOpenAccount } from "@/hooks/accounts/use-open-account";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,15 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useCallback, useState } from "react";
-import { useDeleteAccount } from "@/hooks/accounts/api/use-delete-account";
 import { useConfirm } from "@/hooks/modals/use-confirm";
+import { useOpenTransaction } from "@/hooks/transactions/use-open-transaction";
+import { useDeleteTransaction } from "@/hooks/transactions/api/use-delete-transaction";
 
 export function Actions({ id }: { id: string }) {
-  const { onOpen } = useOpenAccount();
-  const deleteMutation = useDeleteAccount(id);
+  const { onOpen } = useOpenTransaction();
+  const deleteMutation = useDeleteTransaction(id);
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
-    "You are about to delete this account. This action cannot be undone."
+    "You are about to delete this transaction. This action cannot be undone."
   );
   const [isOpen, setIsOpen] = useState(false);
 

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { SingleValue } from "react-select";
-import CreatableSelect from "react-select/creatable";
+import CreatableSelect from "react-select/creatable"; // allows to create new options with including selecting existing ones
 
 type SelectProps = {
   onChange: (value?: string) => void;

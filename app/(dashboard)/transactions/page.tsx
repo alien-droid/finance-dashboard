@@ -6,20 +6,55 @@ import { Loader2, Plus } from "lucide-react";
 import { useNewTransaction } from "@/hooks/transactions/use-new-transaction";
 import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
-import { getAccounts } from "@/hooks/accounts/api/use-get-accounts";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useBulkDeleteAccounts } from "@/hooks/accounts/api/use-bulk-delete";
+
+import { transactions as transactionsSchema } from "@/db/schema";
+import { getTransactions } from "@/hooks/transactions/api/use-get-transactions";
+import { useBulkDeleteTrsansactions } from "@/hooks/transactions/api/use-bulk-delete";
+import { useState } from "react";
+import { UploadButton } from "./upload-button";
+import ImportCard from "./import-card";
+
+enum VARIANTS {
+  LIST = "LIST",
+  IMPORT = "IMPORT",
+}
+
+const IMPORT_RESULTS = {
+  data: [],
+  errors: [],
+  meta: {},
+};
 
 const page = () => {
+  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+  const [importResults, setImportResults] = useState(IMPORT_RESULTS);
+
+  const onUpload = (results: typeof IMPORT_RESULTS) => {
+    console.log({ results });
+    setImportResults(results);
+    setVariant(VARIANTS.IMPORT);
+  };
+
+  const onCancelImport = () => {
+    setVariant(VARIANTS.LIST);
+    setImportResults(IMPORT_RESULTS);
+  };
+
   const newTransaction = useNewTransaction();
-  const accountsQuery = getAccounts();
-  const accounts = accountsQuery.data || [];
+  const transactionsQuery = getTransactions();
+  const transactions = transactionsQuery.data || [];
 
-  const deleteAccounts = useBulkDeleteAccounts();
+  const deleteTransactions = useBulkDeleteTrsansactions();
 
-  const isDisabled = accountsQuery.isLoading || deleteAccounts.isPending;
+  const isDisabled =
+    transactionsQuery.isLoading || deleteTransactions.isPending;
 
-  if (accountsQuery.isLoading) {
+  const onSubmitImport = async (values: typeof transactionsSchema.$inferInsert[]) => {
+    
+  };
+
+  if (transactionsQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-32">
         <Card className="border-none drop-shadow-sm">
@@ -36,6 +71,18 @@ const page = () => {
     );
   }
 
+  if (variant === VARIANTS.IMPORT) {
+    return (
+      <>
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelImport}
+          onSubmit={() => {}}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-32">
       <Card className="border-none drop-shadow-sm">
@@ -43,19 +90,26 @@ const page = () => {
           <CardTitle className="text-xl line-clamp-1">
             Transaction History
           </CardTitle>
-          <Button size="sm" onClick={newTransaction.onOpen}>
-            <Plus className="size-4 mr-2" />
-            Add new
-          </Button>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-end gap-2 w-full">
+            <Button
+              size="sm"
+              onClick={newTransaction.onOpen}
+              className="w-full lg:w-auto"
+            >
+              <Plus className="size-4 mr-2" />
+              Add new
+            </Button>
+            <UploadButton onUpload={onUpload} />
+          </div>
         </CardHeader>
         <CardContent>
           <DataTable
-            data={accounts}
+            data={transactions}
             columns={columns}
-            filterKey="name"
+            filterKey="payee"
             onDelete={(row) => {
               const ids = row.map((row) => row.original.id);
-              deleteAccounts.mutate({ ids });
+              deleteTransactions.mutate({ ids });
             }}
             disabled={isDisabled}
           />

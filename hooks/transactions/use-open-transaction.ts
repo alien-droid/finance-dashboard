@@ -1,13 +1,13 @@
 import { create } from "zustand"; // acount sheet (editing) context hook
 
-type OpenAccountState = {
+type OpenTransactionState = {
   id?: string;
   isOpen: boolean;
   onOpen: (id: string) => void;
   onClose: () => void;
 };
 
-export const useOpenAccount = create<OpenAccountState>((set) => ({
+export const useOpenTransaction = create<OpenTransactionState>((set) => ({
   id: undefined,
   isOpen: false,
   onOpen: (id) => set({ isOpen: true, id }),

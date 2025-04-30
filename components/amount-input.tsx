@@ -1,7 +1,7 @@
 import CurrencyInput from "react-currency-input-field";
 import { Info, MinusCircle, PlusCircle } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn, formatAmount } from "@/lib/utils";
 
 import {
   TooltipTrigger,
@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   Tooltip,
 } from "@/components/ui/tooltip";
+import { parse } from "path";
 
 type AmountInputProps = {
   value: string;
@@ -23,7 +24,7 @@ export const AmountInput = ({
   placeholder,
   disabled,
 }: AmountInputProps) => {
-  const parsedValue = parseFloat(value);
+  const parsedValue = formatAmount(parseFloat(value));
   const isIncome = parsedValue > 0;
   const isExpense = parsedValue < 0;
 

@@ -12,3 +12,11 @@ export function formatCurrency(value: number) {
 export function formatAmount(value: number) {
   return value / 1000;
 }
+
+export function formatAmountToCurrency(value: number) {
+  return Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(value)
+}

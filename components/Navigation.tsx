@@ -13,7 +13,7 @@ import { useMedia } from "react-use";
 import React from "react";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+
 
 const routes = [
   { name: "Overview", href: "/" },
@@ -49,9 +49,9 @@ const Navigation = () => {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="px-2">
-          <VisuallyHidden>
+          <span className="sr-only">
             <SheetTitle>Menu</SheetTitle>
-          </VisuallyHidden>
+          </span>
 
           <nav className="flex flex-col gap-y-2 pt-6">
             {routes.map((route) => (
