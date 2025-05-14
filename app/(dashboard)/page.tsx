@@ -1,13 +1,12 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useNewAccount } from "@/hooks/accounts/use-new-account";
-import React from "react";
+import { DataCharts } from "@/components/data-charts";
+import { DataGrid } from "@/components/data-grid";
 
 const Home = () => {
-  const { onOpen } = useNewAccount();
+  
   return (
-    <div>
-      <Button onClick={onOpen}>Add an account</Button>
+    <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+      <DataGrid />
+      <DataCharts />
     </div>
   );
 };

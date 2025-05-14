@@ -14,6 +14,10 @@ import { useBulkDeleteTrsansactions } from "@/hooks/transactions/api/use-bulk-de
 import { useState } from "react";
 import { UploadButton } from "./upload-button";
 import ImportCard from "./import-card";
+import { useSelectAccount } from "@/hooks/accounts/use-select-account";
+import { toast } from "sonner";
+import { useBulkCreateTrsansactions } from "@/hooks/transactions/api/use-bulk-create-transactions";
+import { on } from "events";
 
 enum VARIANTS {
   LIST = "LIST",
@@ -26,7 +30,8 @@ const IMPORT_RESULTS = {
   meta: {},
 };
 
-const page = () => {
+const Page = () => {
+  const [AccountDialog, confirm] = useSelectAccount();
   const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
   const [importResults, setImportResults] = useState(IMPORT_RESULTS);
 
@@ -42,6 +47,7 @@ const page = () => {
   };
 
   const newTransaction = useNewTransaction();
+  const createTransactions = useBulkCreateTrsansactions();
   const transactionsQuery = getTransactions();
   const transactions = transactionsQuery.data || [];
 
@@ -50,8 +56,24 @@ const page = () => {
   const isDisabled =
     transactionsQuery.isLoading || deleteTransactions.isPending;
 
-  const onSubmitImport = async (values: typeof transactionsSchema.$inferInsert[]) => {
-    
+  const onSubmitImport = async (
+    values: (typeof transactionsSchema.$inferInsert)[]
+  ) => {
+    const accountId = await confirm();
+    if (!accountId) {
+      return toast.error("Please select an account to import transactions.");
+    }
+    const data = values.map((value) => ({
+      ...value,
+      accountId: accountId as string,
+    }));
+    console.log({ data });
+
+    createTransactions.mutate(data, {
+      onSuccess: () => {
+        onCancelImport();
+      },
+    });
   };
 
   if (transactionsQuery.isLoading) {
@@ -74,10 +96,11 @@ const page = () => {
   if (variant === VARIANTS.IMPORT) {
     return (
       <>
+        <AccountDialog />
         <ImportCard
           data={importResults.data}
           onCancel={onCancelImport}
-          onSubmit={() => {}}
+          onSubmit={onSubmitImport}
         />
       </>
     );
@@ -119,4 +142,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

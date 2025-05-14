@@ -21,7 +21,7 @@ const page = () => {
 
   if (categoriesQuery.isLoading) {
     return (
-      <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-32">
+      <div className="max-w-screen-2xl mx-auto w-full pb-12 -mt-32">
         <Card className="border-none drop-shadow-sm">
           <CardHeader>
             <Skeleton className="w-50 h-8" />
