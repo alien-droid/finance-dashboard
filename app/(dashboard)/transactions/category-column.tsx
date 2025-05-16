@@ -16,9 +16,8 @@ export const CategoryColumn = ({
 }: categoryColumnProps) => {
   const { onOpen: openCategory } = useOpenCategory();
   const { onOpen: openTransaction } = useOpenTransaction();
-  const handleClick = () => {
+  const handleClick = () =>
     categoryId ? openCategory(categoryId) : openTransaction(id);
-  };
 
   return (
     <div

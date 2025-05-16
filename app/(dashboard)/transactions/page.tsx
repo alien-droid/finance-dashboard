@@ -11,13 +11,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { transactions as transactionsSchema } from "@/db/schema";
 import { getTransactions } from "@/hooks/transactions/api/use-get-transactions";
 import { useBulkDeleteTrsansactions } from "@/hooks/transactions/api/use-bulk-delete";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { UploadButton } from "./upload-button";
 import ImportCard from "./import-card";
 import { useSelectAccount } from "@/hooks/accounts/use-select-account";
 import { toast } from "sonner";
 import { useBulkCreateTrsansactions } from "@/hooks/transactions/api/use-bulk-create-transactions";
-import { on } from "events";
 
 enum VARIANTS {
   LIST = "LIST",
@@ -30,7 +29,8 @@ const IMPORT_RESULTS = {
   meta: {},
 };
 
-const Page = () => {
+// Create a client component that uses useSearchParams
+const TransactionsContent = () => {
   const [AccountDialog, confirm] = useSelectAccount();
   const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
   const [importResults, setImportResults] = useState(IMPORT_RESULTS);
@@ -139,6 +139,30 @@ const Page = () => {
         </CardContent>
       </Card>
     </div>
+  );
+};
+
+// Main page component with Suspense boundary
+const Page = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-32">
+          <Card className="border-none drop-shadow-sm">
+            <CardHeader>
+              <Skeleton className="w-50 h-8" />
+            </CardHeader>
+            <CardContent>
+              <div className="w-full h-[500px] flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-slate-300" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      }
+    >
+      <TransactionsContent />
+    </Suspense>
   );
 };
 

@@ -10,7 +10,7 @@ import { getCategories } from "@/hooks/categories/api/use-get-categories";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteCategories } from "@/hooks/categories/api/use-bulk-delete";
 
-const page = () => {
+const CategoriesPage = () => {
   const newCategory = useNewCategory();
   const categoriesQuery = getCategories();
   const categories = categoriesQuery.data || [];
@@ -63,4 +63,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CategoriesPage;

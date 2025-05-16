@@ -10,7 +10,7 @@ import { getAccounts } from "@/hooks/accounts/api/use-get-accounts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteAccounts } from "@/hooks/accounts/api/use-bulk-delete";
 
-const page = () => {
+const AccountsPage = () => {
   const newAccount = useNewAccount();
   const accountsQuery = getAccounts();
   const accounts = accountsQuery.data || [];
@@ -63,4 +63,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AccountsPage;

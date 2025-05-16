@@ -9,7 +9,6 @@ import {
   TooltipProvider,
   Tooltip,
 } from "@/components/ui/tooltip";
-import { parse } from "path";
 
 type AmountInputProps = {
   value: string;
@@ -66,8 +65,8 @@ export const AmountInput = ({
         disabled={disabled}
       />
       <p className="text-xs text-muted-foreground mt-2">
-        {isIncome && <span>This is considered an 'income'</span>}
-        {isExpense && <span>This is considered an 'expense'</span>}
+        {isIncome && <span>This is considered an &apos;income&apos;</span>}
+        {isExpense && <span>This is considered an &apos;expense&apos;</span>}
       </p>
     </div>
   );

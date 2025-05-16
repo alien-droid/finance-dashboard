@@ -10,7 +10,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { categoriesInsertSchema } from "@/db/schema";
 import { Input } from "../ui/input";
