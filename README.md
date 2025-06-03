@@ -30,5 +30,21 @@ X-Finance is a sleek and intelligent financial dashboard that aggregates and vis
 4. Interact with charts and tables for deeper financial analysis.
 
 ---
+### 🗒️ Set Up Environment Variables
+
+Create a new file named .env in the root of your project and add the following content:
+    
+    # Clerk
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+    CLERK_SECRET_KEY=
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+    NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+    NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+    
+    # Neon
+    DATABASE_URL=
+
+    # Application URL
+    NEXT_PUBLIC_APP_URL=
 
 #### 🏗 Built with ❤️ using Hono, TypeScript, Tailwind CSS, and React Query  
